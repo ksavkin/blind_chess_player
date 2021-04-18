@@ -31,6 +31,9 @@ class Game:
     # количество подсказок
     help_count_init = 0
 
+    # Уровень сложности
+    level = 1  # 1,2,3
+
     # доска игры
     board = chess.Board()
 
@@ -97,6 +100,31 @@ class Game:
     def set_help_count(self, count):
         self.help_count_init = count
 
+    def set_level(self, level):
+        sec = 1.0
+        if level == 1:
+            sec = 0.0000000001
+        elif level == 2:
+            sec = 0.000000001
+        elif level == 3:
+            sec = 0.00000001
+        elif level == 4:
+            sec = 0.0000001
+        elif level == 5:
+            sec = 0.000001
+        elif level == 6:
+            sec = 0.00001
+        elif level == 7:
+            sec = 0.0001
+        elif level == 8:
+            sec = 0.001
+        elif level == 9:
+            sec = 0.01
+        elif level == 10:
+            sec = 0.1
+
+        self.level = sec
+
     # проверка, что игра окончена
     def check_gamme_over(self, user):
         return self.board.outcome()
@@ -126,6 +154,7 @@ class GameEngine:
         return self.games[user]
 
     # обработчик хода человека
+
     def human_move_processing(self, user, text):
         game = self.get_game_by_user(user)
         move = game.get_move_from_text(text)
@@ -139,7 +168,9 @@ class GameEngine:
     def bot_move(self, user):
         bot.send_chat_action(user.chat_id, 'typing')
         game = self.get_game_by_user(user)
-        move = self.engine.play(game.board, chess.engine.Limit(time=0.01)).move
+
+        move = self.engine.play(
+            game.board, chess.engine.Limit(time=game.level)).move
         game.board_add_move(move)
         bot.send_message(user.chat_id, move)
 
@@ -283,7 +314,46 @@ def command_helpcount(call):
     count = int(call.data.replace("help_count", ""))
 
     user = User(call.message.chat.id)
-    game_engine.get_game_by_user(user).set_help_count(count)
+    current_game = game_engine.get_game_by_user(user)
+    current_game.set_help_count(count)
+
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 1', callback_data='level1'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 2', callback_data='level2'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 3', callback_data='level3'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 4', callback_data='level4'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 5', callback_data='level5'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 6', callback_data='level6'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 7', callback_data='level7'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 8', callback_data='level8'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 9', callback_data='level9'))
+    keyboard.add(telebot.types.InlineKeyboardButton(
+        text='Уровень 10', callback_data='level10'))
+
+    bot.send_message(
+        call.message.chat.id,
+        "Выберите уровень сложности (чем уровень выше, тем бот сильнее играет)",
+        reply_markup=keyboard)
+
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith("level"))
+def command_level(call):
+    bot.edit_message_reply_markup(
+        call.message.chat.id, call.message.message_id)
+    level = int(call.data.replace("level", ""))
+
+    user = User(call.message.chat.id)
+    current_game = game_engine.get_game_by_user(user)
+    current_game.set_level(level)
 
     keyboard = telebot.types.InlineKeyboardMarkup()
     keyboard.add(telebot.types.InlineKeyboardButton(
