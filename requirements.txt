@@ -1,0 +1,4 @@
+telebot
+chess
+cairosvg
+uuid
