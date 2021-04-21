@@ -7,6 +7,7 @@ import chess.engine
 from user import User
 from game import Game
 
+
 class GameEngine:
 
     ENGINE_PATH = "/Users/konstantinsavkin/chess_engines/stockfish/13/bin/stockfish"
@@ -82,4 +83,3 @@ class GameEngine:
             return True
 
         return False
-

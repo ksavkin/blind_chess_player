@@ -9,6 +9,7 @@ import cairosvg
 import uuid
 import os
 
+
 class Game:
     # количество подсказок
     help_count_init = 0
@@ -56,7 +57,8 @@ class Game:
             self.help_count_init -= 1
             return True
 
-        self.bot.send_message(user.chat_id, "Твое количество подсказок закончилось")
+        self.bot.send_message(
+            user.chat_id, "Твое количество подсказок закончилось")
         return False
 
     def movies_show(self, user):
@@ -107,4 +109,3 @@ class Game:
     # проверка, что игра окончена
     def check_gamme_over(self, user):
         return self.board.outcome()
-

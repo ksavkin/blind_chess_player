@@ -16,6 +16,6 @@ Basilio_chess
     Преобразования шахматных нотаций
     Связь с шахматным движком
     Генерация SVG доски
-Библиотеки: telebot, chess, cairosvg, os, uuid
+Библиотеки: requirements.txt
 Скрины: 
 В файлах: screen1.jpg, screen2.jpg
