@@ -11,7 +11,7 @@ class GameEngine:
 
     ENGINE_PATH = "/Users/konstantinsavkin/chess_engines/stockfish/13/bin/stockfish"
 
-    engine = chess.enggine.SimpleEngine.popen_uci(ENGINE_PATH)
+    engine = chess.engine.SimpleEngine.popen_uci(ENGINE_PATH)
 
     # массив игр
     games = {}

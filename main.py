@@ -5,7 +5,7 @@ from user import User
 from game import Game
 from game_engine import GameEngine
 
-TOKEN = '1728273090:AAHfWDqNNQjXs2UffWj_ool8ySD6vyTMKbg'
+TOKEN = "TOKEN"
 
 # логи входящих сообщений в конслоль
 def listener(messages):
