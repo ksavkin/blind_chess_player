@@ -57,7 +57,6 @@ class GameEngine:
 
     def check_game_over(self, user):
         current_game = self.get_game_by_user(user)
-
         status = current_game.check_gamme_over(user)
 
         if status != None:
@@ -65,6 +64,7 @@ class GameEngine:
             if winner == chess.WHITE:
                 self.bot.send_message(
                     user.chat_id, "Игра окончена. Белые подбедили!")
+                    
             else:
                 self.bot.send_message(
                     user.chat_id, "Игра окончена. Черные подбедили!")
