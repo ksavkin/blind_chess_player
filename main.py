@@ -1,3 +1,4 @@
+from email import message
 import telebot
 from telebot import types
 
@@ -5,7 +6,7 @@ from user import User
 from game import Game
 from game_engine import GameEngine
 
-TOKEN = '1780719523:AAFKLYCCmUfTvAzFKa17-OJmfNRne5d8S8Q'
+TOKEN = '5204766218:AAEmRHLnfei5ALGUCcqNFt9j5_l4QosJ7H4'
 
 # логи входящих сообщений в конслоль
 def listener(messages):
@@ -181,7 +182,82 @@ def command_color_black(call):
         call.message.chat.id, call.message.message_id)
     do_play(call.message.chat.id, False)
 
+@bot.message_handler(content_types=['venue'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['successful_payment'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['data'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
 
+@bot.message_handler(content_types=['poll'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+
+@bot.message_handler(content_types=['reply'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+
+@bot.message_handler(content_types=['sticker'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+
+@bot.message_handler(content_types=['game'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['invoice'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['location'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['forwarded'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['contact'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['document'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['dice'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['chat_type'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['caption'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['caption_entity'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['caption_regex'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['chat'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['video_note'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['video'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['animation'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['audio'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=['voice'])
+def command_check_q(message):
+    bot.send_message(message.chat.id, "Ненада")
+@bot.message_handler(content_types=["photo"])
+def photo(message):
+   bot.send_message(message.chat.id, "Ненада")
 @bot.message_handler(content_types=['text'], func=lambda message: message.text.lower() == 'показать доску')
 def command_board_show(message):
     user = User(message.chat.id)
@@ -227,6 +303,8 @@ def message_receive(message):
             bot.send_message(message.chat.id, "Твой ход")
 
 
+
+
 def do_play(chat_id, is_human_white):
     keyboard = telebot.types.ReplyKeyboardMarkup(True)
     bot.send_message(
@@ -248,6 +326,5 @@ def do_play(chat_id, is_human_white):
             'Вы выбрали играть за черных. Ход бота',
             reply_markup=keyboard)
         game_engine.bot_move(user)
-
 
 bot.polling()
